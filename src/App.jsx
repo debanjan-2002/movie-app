@@ -27,15 +27,20 @@ const App = () => {
 
     console.log(url);
 
-    const apiTesting = () => {
-        fetchDataFromAPI("/movie/popular").then(res => {
+    const fetchAPIConfig = () => {
+        fetchDataFromAPI("/configuration").then(res => {
             console.log(res);
-            dispatch(getAPIConfiguration(res));
+            const url = {
+                backdrop: res.images.secure_base_url + "original",
+                poster: res.images.secure_base_url + "original",
+                profile: res.images.secure_base_url + "original"
+            };
+            dispatch(getAPIConfiguration(url));
         });
     };
 
     useEffect(() => {
-        apiTesting();
+        fetchAPIConfig();
     }, []);
     return (
         <>
