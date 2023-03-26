@@ -7,6 +7,7 @@ import { fetchDataFromAPI } from "./utils/api";
 
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
+import Root from "./pages/Root/Root";
 import Home from "./pages/Home/Home";
 import Details from "./pages/Details/Details";
 import SearchResult from "./pages/SearchResult/SearchResult";
@@ -14,11 +15,17 @@ import Explore from "./pages/Explore/Explore";
 import PageNotFound from "./pages/404/PageNotFound";
 
 const router = createBrowserRouter([
-    { path: "/", element: <Home /> },
-    { path: "/:mediaType/:id", element: <Details /> },
-    { path: "/search/:query", element: <SearchResult /> },
-    { path: "/explore/:mediaType", element: <Explore /> },
-    { path: "*", element: <PageNotFound /> }
+    {
+        path: "/",
+        element: <Root />,
+        children: [
+            { index: true, element: <Home /> },
+            { path: "/:mediaType/:id", element: <Details /> },
+            { path: "/search/:query", element: <SearchResult /> },
+            { path: "/explore/:mediaType", element: <Explore /> },
+            { path: "*", element: <PageNotFound /> }
+        ]
+    }
 ]);
 
 const App = () => {
